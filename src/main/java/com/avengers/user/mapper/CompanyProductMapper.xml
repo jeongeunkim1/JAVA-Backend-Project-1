@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.avengers.user.mapper.CompanyProductMapper">
+
+<!-- Product insert 후 CompanyProduct에 insert -->
+<insert id="insertCompanyProduct" parameterType="com.avengers.user.dto.CompanyProduct">
+	<selectKey keyProperty="product_no" resultType="int" order="BEFORE">
+		 select max(product_no) from product
+	</selectKey>
+	insert into CompanyProduct values 
+	(#{product_no},
+	#{companyProduct_name},
+	#{companyProduct_desc},
+	#{companyProduct_price},
+	#{companyProduct_content},
+	sysdate,
+	#{user_no})
+</insert>
+	
+<!-- 회사가 자신이 판매하는 제품리스트-->
+<select id="selectCompanyProductAllByNo" parameterType="int" resultType="com.avengers.user.dto.CompanyProduct">
+	select companyProduct_no, companyProduct_name, companyProduct_desc, companyProduct_price, companyProduct_content, sysdate, user_no
+	from CompanyProduct where user_no=#{user_no}
+</select>
+
+<!-- 회사가 자신이 판매하는 제품 상세보기 -->
+<select id="selectCompanyProductByNo" parameterType="int" resultType="com.avengers.user.dto.CompanyProduct">
+	select companyProduct_no, companyProduct_name, companyProduct_desc, companyProduct_price, companyProduct_content, sysdate, user_no
+	from CompanyProduct where CompanyProduct_no=#{companyProduct_no}
+</select>
+
+<!-- 회시가 자신이 판매하는 제품 수정 -->
+<update id="updateCompanyProductByNo" parameterType="com.avengers.user.dto.CompanyProduct">
+	update CompanyProduct set 
+	CompanyProduct_name=#{companyProduct_name},
+    CompanyProduct_desc=#{companyProduct_desc}, 
+    CompanyProduct_price=#{companyProduct_price},
+	CompanyProduct_content=#{companyProduct_content}
+	where CompanyProduct_no=#{companyProduct_no}
+</update>
+
+<!-- 회사가 자신이 등록한 제품 삭제-->
+<delete id="deleteCompanyProductByNo" parameterType="int">
+	delete from CompanyProduct where CompanyProduct_no=#{companyProduct_no}
+</delete>
+
+</mapper>

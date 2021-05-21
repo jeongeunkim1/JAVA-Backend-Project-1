@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.avengers.user.mapper.UserInfoMapper">
+	
+	<!-- 로그인 -->
+	<select id="userLogin" parameterType="com.avengers.user.dto.UserInfo" resultType="com.avengers.user.dto.UserInfo">
+		select * from userInfo where user_id=#{user_id} and user_password=#{user_password}
+	</select>
+	
+	<!-- 회원 가입 -->
+	<insert id="insertUserInfo" parameterType="com.avengers.user.dto.UserInfo">
+	  insert into userInfo(user_no, user_Name, user_Id, user_Password, user_Email) 		
+	  values (USERINFO_USER_NO_SEQ.nextval,#{user_name},#{user_id},#{user_password},#{user_email})
+	</insert>
+			
+	<!-- 회원 정보 출력 (user_no로 찾기) -->
+	<select id="selectUserInfoByNo" parameterType="int" resultType="com.avengers.user.dto.UserInfo">
+	   select user_no, user_name, user_id, user_password, user_email from userInfo where user_no=#{user_no}		
+	</select>
+	
+	<!-- 회원 아이디 찾기(이메일로 찾기) -->
+	<select id="selectUserIdByEmail" parameterType="String" resultType="com.avengers.user.dto.UserInfo">
+	   select user_no, user_name, user_id, user_password, user_email from userInfo where user_email=#{user_email}
+	</select>
+	
+	<!-- 회원 비밀번호 찾기(아이디랑 이메일로 찾기 > sql문은 id로 password를 찾는것만 > controller에서 sql문 두 개 실행) -->
+	<select id="selectUserPasswordById" parameterType="String" resultType="com.avengers.user.dto.UserInfo">
+		select user_no, user_name, user_id, user_password, user_email from userInfo where user_id=#{user_id}
+	</select>
+	
+	<!-- 회원정보 수정 (비밀번호, 이메일 수정) -->
+	<update id="updateUserInfo" parameterType="com.avengers.user.dto.UserInfo">
+		update userInfo set user_password=#{user_password},user_email=#{user_email} where user_no=#{user_no}
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<delete id="deleteUserInfoByNo" parameterType="int">
+		delete from userInfo where user_no=#{user_no} 
+	</delete>
+	
+	<!-- 현재 user_no -->
+	<select id="selectCurrentUserNo" resultType="int">
+		select last_number from user_sequences where sequence_name='USERINFO_USER_NO_SEQ'
+	</select>
+	
+	<!-- 전체출력 -->
+	<select id="selectAll" resultType="com.avengers.user.dto.UserInfo">
+		select * from userinfo
+	</select>
+	</mapper>

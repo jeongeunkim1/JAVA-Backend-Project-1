@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.avengers.user.mapper.CardMapper">
+	
+	<!-- 카드 리스트 출력 -->
+	<select id="cardSelect" resultType="com.avengers.user.dto.Card">
+		select card_no,card_cvc,card_deadline,user_no from card where user_no=#{user_no}
+	</select>
+	
+	<!-- 카드 등록 -->
+	<insert id="regiCard" parameterType="com.avengers.user.dto.Card">
+		insert into Card VALUES(
+			#{card_no},#{card_cvc},#{card_deadline},#{card_password},#{card_password2},#{user_no}
+			)
+	</insert>
+		
+	<!-- 카드 삭제 -->
+	<delete id="deleteCard" parameterType="String">
+		delete from card where card_no=#{card_no}
+	</delete>
+	
+	
+</mapper>

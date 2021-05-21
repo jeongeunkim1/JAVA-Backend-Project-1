@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.avengers.user.mapper.CartMapper">
+	
+	<resultMap type="com.avengers.user.dto.Cart" id="findCartAndProductByNo">
+			<result column="cart_no" property="cart_no"/>
+			<result column="user_no" property="user_no"/>
+			<result column="product_no" property="product_no"/>
+			<result column="cart_quantity" property="cart_quantity"/>
+		<association property="product" javaType="com.avengers.user.dto.Product">
+			 <result column="product_no" property="product_no"/>
+			 <result column="product_name" property="product_name"/>
+			 <result column="product_desc" property="product_desc"/>
+			 <result column="product_price" property="product_price"/>
+			 <result column="product_seller" property="product_seller"/>
+			 <result column="product_date" property="product_date"/>
+			 <result column="product_image" property="product_image"/>
+		 </association>
+	</resultMap>
+	
+	<!-- 유저가 장바구니에 담은 카트목록들 -->
+	<select id="selectCartAllByNo" parameterType="int" resultType="com.avengers.user.dto.Cart">
+		select * from cart where user_no=#{user_no}
+	</select>
+	
+	<select id="findCartAndProductByNo" resultMap="findCartAndProductByNo">
+		SELECT c.cart_quantity,c.cart_no, p.* FROM cart c JOIN product p on c.product_no=p.product_no where c.user_no=#{user_no}
+	</select>
+	<!-- 주문 완료된 제품의 카트에 있던 정보 
+	<select id="findCompleteCart" resultType="com.avengers.user.dto.Cart">
+		SELECT
+		c.cart_quantity,c.cart_no,c.product_no,c.user_no
+		from jumun j join jumun_detail jd on jd.j_no = j.j_no 
+		join cart c on c.cart_no = jd.cart_no where j.j_no in
+		(SELECT MAX(j_no) FROM jumun where user_no=#{user_no})
+	</select>
+	-->
+	<!-- 유저가 장바구니에 담기 클릭시 장바구니에 담기 -->
+	<insert id="insertCart" parameterType="com.avengers.user.dto.Cart">
+		insert into Cart(cart_no,user_no,product_no) VALUES(
+		CART_CART_NO_SEQ.nextval,#{user_no},#{product_no})
+	</insert>
+
+	<!-- 장바구니에 담은것 하나삭제(cart하나 삭제) -->
+	<delete id="deleteCartByCartNo" parameterType="int">
+		delete from cart where cart_no=#{cart_no}
+	</delete>
+	
+	<!-- 장바구니에 담은것들 모두삭제(cart전체 삭제) -->
+	<delete id="deleteCartByUserNo" parameterType="int">
+		delete from cart where user_no=#{user_no}
+	</delete>
+	
+	<!-- 유저가 담으려는 제품이 카트에 있는지 확인 -->
+	<select id="findcartitem" parameterType="com.avengers.user.dto.Cart" resultType="com.avengers.user.dto.Cart">
+		select * from cart where product_no=#{product_no} and user_no=#{user_no}
+	</select>
+	
+	<!-- 특정 카트만 조회 -->
+	<select id="findcartitembyNo" parameterType="int" resultType="com.avengers.user.dto.Cart">
+		select * from cart where cart_no=#{cart_no}
+	</select>
+	
+	<!-- 이미 카트에 있는 상품의 수량 증가 -->
+	<update id="updateCartQty" parameterType="com.avengers.user.dto.Cart">
+		update cart set cart_quantity=(cart_quantity+#{cart_quantity}) where product_no=#{product_no} and user_no=#{user_no}
+	</update>
+</mapper>

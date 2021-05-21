@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+		<meta charset="utf-8">
+	<title>Wokiee - Responsive HTML5 Template</title>
+	<meta name="keywords" content="HTML5 Template">
+	<meta name="description" content="Wokiee - Responsive HTML5 Template">
+	<meta name="author" content="wokiee">
+	<link rel="shortcut icon" href="favicon.ico">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+	<style type="text/css">
+		.tt--listing row{
+			border: 1px solid #c3c3c3;
+		}
+		
+		.tt-list-row {
+			font-family: 'Noto Sans KR', sans-serif;
+		}
+		.tt-filter-list{
+			font-family: 'Noto Sans KR', sans-serif;
+		}
+		.tt-rating {
+			padding:0px 60px;
+			text-align: cneter;
+		}
+		.tt-product-price span{
+			padding:50px 70px;
+			text-align: cneter;
+		}
+		.tt-product-name span{
+			padding:50px 59px;
+			text-align: center;
+		}
+		.mem-product-qty{
+			font-family: 'Noto Sans KR', sans-serif;
+		}
+		.product-search-count{
+			padding:0px 75px 0px 0px;
+		}
+	</style>
+</head>
+<body>
+<div id="loader-wrapper">
+	<div id="loader">
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+	</div>
+</div>
+<div id="header" th:insert="header-top"></div>
+<div id="tt-pageContent">
+	<div class="container-indent">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 col-lg-3 col-xl-3 leftColumn aside" id="js-leftColumn-aside">
+					<div class="tt-btn-col-close">
+						<a href="#">Close</a>
+					</div>
+					<div class="tt-collapse open tt-filter-detach-option">
+						<div class="tt-collapse-content">
+							<div class="filters-mobile">
+								<div class="filters-row-select">
+
+								</div>
+							</div>
+						</div>
+					</div>					
+				</div>
+				<div class="col-md-12 col-lg-9 col-xl-9">
+					<div class="content-indent container-fluid-custom-mobile-padding-02">
+						<div class="tt-filters-options"  id="js-tt-filters-options">
+							<ul class="product-search-count">
+								<ins class="tt-title-total" th:text="${serchCount}+'개의 상품이 있습니다.'"></ins>
+							</ul>
+						</div>
+
+						<div class="tt--listing row" id="proudcts_list">
+							<div class="col-6 col-md-4 tt-col-item" th:each="product:${product.productList}">
+								<div class="tt- thumbprod-center" >
+									<div class="tt-image-box">
+										  <a th:href="@{product_info(product_no=${product.product_no},type=${product.product_category})}">
+											<span class="tt-img"><img th:src="@{images/productImage/}+${product.product_image}" height="250" width="200"></span>
+										  </a>
+									</div>
+									<div class="tt-description" >
+										<div class="tt-row">
+							
+											<div class="tt-rating">
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												<i class="icon-star-half"></i>
+												<i class="icon-star-empty"></i>
+											</div>
+										</div>
+										<div class="tt-product-name" >
+											<span style="font-family: 'Noto Sans KR', sans-serif; font-size: 10px;" class="product_name" th:text="${product.product_name}"><a href=".html"></a></span>										
+										</div>
+										<div class="tt-product-price" >
+											<span style="font-size:11px;" th:text="${#numbers.formatDecimal(product.product_price,0,'COMMA',0,'POINT')}+'원'"></span>																					
+										</div>
+									</div>
+								</div>
+							</div>
+					  			
+							<!-- 페이징 시작 -->
+							<div class="container">
+								<div class="row">
+									<div class="col">
+										<ul class="pagination justify-content-center" th:with="start=${product.pageMakerSearch.getBlockBegin()},end=${product.pageMakerSearch.getBlockEnd()}">
+											<li class="page-item"><a class="page-link" th:href="@{product_search(pageno=1,search=${search})}"><<</a></li>
+											<li class="page-item" th:if="${product.pageMakerSearch.getPrevPage()!=0}"><a class="page-link" th:href="@{product_search(pageno=${product.pageMakerSearch.getPrevPage()},search=${search})}"><</a></li>
+											<li class="page-item" th:unless="${product.pageMakerSearch.getPrevPage()!=0}"><a class="page-link" th:href="@{product_search(pageno=1,search=${search})}"><</a></li>
+											
+											<th:block th:each="page: ${#numbers.sequence(start, end)}">
+											<li class="page-item" th:if="${product.pageMakerSearch.getCurPage()}==${page}">
+												<a class="page-link" th:text="${page}">1</a>
+											</li>
+											<li class="page-item" th:unless="${product.pageMakerSearch.getCurPage()}==${page}">
+												<a class="page-link" th:href="@{product_search(pageno=${page},search=${search})}" th:text="${page}">2</a>
+											</li>
+											</th:block>
+											
+											<li class="page-item" th:if="${product.pageMakerSearch.getNextPage()<product.pageMakerSearch.getTotPage()}"><a class="page-link" th:href="@{product_search(pageno=${product.pageMakerSearch.getNextPage()},search=${search})}">></a></li>
+											<li class="page-item" th:unless="${product.pageMakerSearch.getNextPage()<product.pageMakerSearch.getTotPage()}"><a class="page-link" th:href="@{product_search(pageno=${product.pageMakerSearch.getTotPage()},search=${search})}">></a></li>
+											<li class="page-item"><a class="page-link" th:href="@{product_search(pageno=${product.pageMakerSearch.getTotPage()},search=${search})}">>></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- 페이징 끝 -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- footer -->
+<div id="header" th:insert="page_footer"></div>
+<div class="tt-promo-fixed" id="js-tt-promo-fixed">
+	<button class="tt-btn-close"></button>
+	<div class="tt-img">
+		<a href=".html"><img src="images/loader.svg" data-src="images//-14.jpg" alt=""></a>
+	</div>
+	<div class="tt-description">
+		<div class="tt-box-top">
+			<p>
+				Someone purchsed a
+			</p>
+			<p>
+				<a href="#">
+					Lorem ipsum dolor sit amet conse ctetur adipisicing elit...
+				</a>
+			</p>
+		</div>
+		<div class="tt-info">
+			14 Minutes ago from  New York, USA
+		</div>
+	</div>
+</div>
+<!-- modal (AddToCart) -->
+<div class="modal  fade"  id="modalAddToCart" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+			</div>
+			<div class="modal-body">
+				<div class="tt-modal-addtocart mobile">
+					<div class="tt-modal-messages">
+						<i class="icon-f-68"></i> Added to cart successfully!
+					</div>
+					<a href="#" class="btn-link btn-close-popup">CONTINUE SHOPPING</a>
+			        <a href="shopping_cart_02.html" class="btn-link">VIEW CART</a>
+			        <a href="page404.html" class="btn-link">PROCEED TO CHECKOUT</a>
+				</div>
+				<div class="tt-modal-addtocart desctope" th:each="product:${products}">
+					<div class="row">
+						<div class="col-12 col-lg-6">
+							<div class="tt-modal-messages">
+								<i class="icon-f-68"></i> Added to cart successfully!
+							</div>
+							<div class="tt-modal-">
+								<div class="tt-img">
+									<img src="images/loader.svg" data-src="images//-01.jpg" alt="">
+								</div>
+								<h2 class="tt-title" th:text="${product.product_name}"><a href=".html">Flared Shift Dress</a></h2>
+								<div class="tt-qty">
+									QTY: <span>1</span>
+								</div>
+							</div>
+							<div class="tt--total">
+								<div class="tt-total">
+									TOTAL: <span class="tt-price" th:text="${product.product_price}">$324</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-lg-6">
+							<a href="#" class="tt-cart-total">
+								There are 1 items in your cart
+								<div class="tt-total">
+									TOTAL: <span class="tt-price" th:text="${product.product_price}">$324</span>
+								</div>
+							</a>
+							<a href="#" class="btn btn-border btn-close-popup">CONTINUE SHOPPING</a>
+							<a href="shopping_cart_02.html" class="btn btn-border">VIEW CART</a>
+							<a href="#" class="btn">PROCEED TO CHECKOUT</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- modal (quickViewModal) -->
+<div class="modal  fade"  id="ModalquickView" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+			</div>
+			<div class="modal-body">
+				<div class="tt-modal-quickview desctope">
+					<div class="row">
+						<div class="col-12 col-md-5 col-lg-6">
+							<div class="tt-mobile--slider arrow-location-center">
+								<div><img src="#" data-lazy="images//-01.jpg" alt=""></div>
+								<div><img src="#" data-lazy="images//-01-02.jpg" alt=""></div>
+								<div><img src="#" data-lazy="images//-01-03.jpg" alt=""></div>
+								<div><img src="#" data-lazy="images//-01-04.jpg" alt=""></div>
+								<!--
+								//video insertion template
+								<div>
+									<div class="tt-video-block">
+										<a href="#" class="link-video"></a>
+										<video class="movie" src="video/video.mp4" poster="video/video_img.jpg"></video>
+									</div>
+								</div> -->
+							</div>
+						</div>
+						<div class="col-12 col-md-7 col-lg-6">
+							<div class="tt--single-info">
+								<div class="tt-add-info">
+									<ul>
+										<li><span>SKU:</span> 001</li>
+										<li><span>Availability:</span> 40 in Stock</li>
+									</ul>
+								</div>
+								<h2 class="tt-title">Cotton Blend Fleece Hoodie</h2>
+								<div class="tt-price">
+									<span class="new-price">$29</span>
+									<span class="old-price"></span>
+								</div>
+								<div class="tt-review">
+									<div class="tt-rating">
+										<i class="icon-star"></i>
+										<i class="icon-star"></i>
+										<i class="icon-star"></i>
+										<i class="icon-star-half"></i>
+										<i class="icon-star-empty"></i>
+									</div>
+									<a href="#">(1 Customer Review)</a>
+								</div>
+								<div class="tt-wrapper">
+									Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+								</div>
+								<div class="tt-swatches-container">
+									<div class="tt-wrapper">
+										<div class="tt-title-options">SIZE</div>
+										<form class="form-default">
+											<div class="form-group">
+												<select class="form-control">
+													<option>21</option>
+													<option>25</option>
+													<option>36</option>
+												</select>
+											</div>
+										</form>
+									</div>
+									<div class="tt-wrapper">
+										<div class="tt-title-options">COLOR</div>
+										<form class="form-default">
+											<div class="form-group">
+												<select class="form-control">
+													<option>Red</option>
+													<option>Green</option>
+													<option>Brown</option>
+												</select>
+											</div>
+										</form>
+									</div>
+									<div class="tt-wrapper">
+										<div class="tt-title-options">TEXTURE:</div>
+										<ul class="tt-options-swatch options-large">
+											<li><a class="options-color" href="#">
+												<span class="swatch-img">
+													<img src="images/loader.svg" data-src="images/custom/texture-img-01.jpg" alt="">
+												</span>
+												<span class="swatch-label color-black"></span>
+											</a></li>
+											<li class="active"><a class="options-color" href="#">
+												<span class="swatch-img">
+													<img src="images/loader.svg" data-src="images/custom/texture-img-02.jpg" alt="">
+												</span>
+												<span class="swatch-label color-black"></span>
+											</a></li>
+											<li><a class="options-color" href="#">
+												<span class="swatch-img">
+													<img src="images/loader.svg" data-src="images/custom/texture-img-03.jpg" alt="">
+												</span>
+												<span class="swatch-label color-black"></span>
+											</a></li>
+											<li><a class="options-color" href="#">
+												<span class="swatch-img">
+													<img src="images/loader.svg" data-src="images/custom/texture-img-04.jpg" alt="">
+												</span>
+												<span class="swatch-label color-black"></span>
+											</a></li>
+											<li><a class="options-color" href="#">
+												<span class="swatch-img">
+													<img src="images/loader.svg" data-src="images/custom/texture-img-05.jpg" alt="">
+												</span>
+												<span class="swatch-label color-black"></span>
+											</a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="tt-wrapper">
+									<div class="tt-row-custom-01">
+										<div class="col-item">
+											<div class="tt-input-counter style-01">
+												<span class="minus-btn"></span>
+												<input type="text" value="1" size="5">
+												<span class="plus-btn"></span>
+											</div>
+										</div>
+										<div class="col-item">
+											<a href="#" class="btn btn-lg"><i class="icon-f-39"></i>ADD TO CART</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- modalVideo -->
+<div class="modal fade"  id="modalVideo" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-video">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+			</div>
+			<div class="modal-body">
+				<div class="modal-video-content">
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- modal (ModalSubsribeGood) -->
+<div class="modal  fade"  id="ModalSubsribeGood" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xs">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+			</div>
+			<div class="modal-body">
+				<div class="tt-modal-subsribe-good">
+					<i class="icon-f-68"></i> You have successfully signed!
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal (newsletter) -->
+<!-- <div class="modal  fade"  id="Modalnewsletter" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true"  data-pause=2000>
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+			</div>
+			<form>
+				<div class="modal-body no-background">
+					<div class="tt-modal-newsletter">
+						<div class="tt-modal-newsletter-promo">
+							<div class="tt-title-small">BE THE FIRST<br> TO KNOW ABOUT</div>
+							<div class="tt-title-large">WOKIEE</div>
+							<p>
+								HTML FASHION DROPSHIPPING THEME
+							</p>
+						</div>
+						<p>
+							By subscribe, you accept the terms &amp; privacy policy<br>
+						</p>
+						<div class="subscribe-form form-default">
+							<div class="row-subscibe">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Enter your e-mail">
+									<button type="submit" class="btn">JOIN US</button>
+								</div>
+							</div>
+							<div class="checkbox-group">
+								<input type="checkbox" id="checkBox1">
+								<label for="checkBox1">
+									<span class="check"></span>
+									<span class="box"></span>
+									Don’t Show This Popup Again
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>-->
+</div> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="external/jquery/jquery.min.js"><\/script>')</script>
+<script defer src="js/bundle.js"></script>
+<a href="#" class="tt-back-to-top" id="js-back-to-top">BACK TO TOP</a>
+<script src="separate-include/listing/listing.js"></script>
+<script type="text/javascript" th:inline="javascript">
+var state=0;
+/*<![CDATA[*/
+/*[# th:if="${type!=null}"]*/
+	var type = /*[[${type}]]*/ null;	
+/*[/]*/
+/*]]>*/
+
+</script>
+<script src="js/product-list.js"></script>
+
+
+</body>
+</html>

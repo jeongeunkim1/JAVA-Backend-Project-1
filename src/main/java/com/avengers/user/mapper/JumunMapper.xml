@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.avengers.user.mapper.JumunMapper">
+
+<insert id="insertJumun" parameterType="com.avengers.user.dto.Jumun">
+<selectKey order="BEFORE" keyProperty="j_no" resultType="java.lang.Integer">
+	select Jumun_j_no_SEQ.nextval j_no from dual
+</selectKey>
+	insert into jumun values(#{j_no}, sysdate, #{user_no},#{j_price},#{j_desc})
+</insert>
+
+<delete id="deleteJumunByNo" parameterType="int">
+delete from jumun where j_no=#{j_no}
+</delete>
+
+<select id="selectJumunAllByUserNo" parameterType="int" resultType="com.avengers.user.dto.Jumun">
+select * from jumun where user_no=#{user_no}
+</select>
+
+<select id="findCompleteJumun" resultType="com.avengers.user.dto.Jumun">
+	SELECT DISTINCT
+	j.*
+	from jumun j join jumun_detail jd on jd.j_no = j.j_no 
+	where j.j_no in
+	(SELECT MAX(j_no) FROM jumun where user_no=#{user_no})
+</select>
+
+</mapper>
+

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.avengers.user.mapper.ProductMapper">
+
+<!-- 제품 리스트 출력 -->
+<select id="findProductsAll" resultType="com.avengers.user.dto.Product">
+	select * from product
+</select>
+
+<!-- 주문 완료된 제품 리스트 출력 
+<select id="findCompleteProduct" resultType="com.avengers.user.dto.Product">
+	SELECT
+	p.product_no,p.product_name,p.product_desc,p.product_price,p.product_seller,p.product_date,p.product_image
+	from jumun j join jumun_detail jd on 7jd.j_no = j.j_no 
+	join product p on p.product_no = jd.product_no where j.j_no in
+	(SELECT MAX(j_no) FROM jumun where user_no=#{user_no})
+</select>
+-->
+
+<!-- 제품 낮은 가격순으로 출력 -->
+<select id="findByLowPrice" parameterType="String" resultType="com.avengers.user.dto.Product" >
+	select * from product where product_category like '%'||#{product_category}||'%' order by product_price asc
+</select>
+
+<!-- 제품 높은 가격순으로 출력 -->
+<select id="findByHighPrice" parameterType="String" resultType="com.avengers.user.dto.Product">
+	select * from product where product_category like '%'||#{product_category}||'%' order by product_price desc
+</select>
+
+<!-- 제품 이름순 ↑ -->
+<select id="findNameDesc" parameterType="String" resultType="com.avengers.user.dto.Product">
+	select * from product where product_category like '%'||#{product_category}||'%' order by product_name desc
+</select>
+
+<!-- 제품 이름순 ↓ -->
+<select id="findNameAsc" parameterType="String" resultType="com.avengers.user.dto.Product">
+	select * from product where product_category like '%'||#{product_category}||'%' order by product_name asc
+</select>
+
+<!-- 제품 낮은 별점순으로 출력 -->
+<select id="findByLowStar" resultType="com.avengers.user.dto.Product">
+	select * from product p join comments c on p.product_no=c.product_no order by c.comments_star asc
+</select>
+
+<!-- 제품 높은 별점순으로 출력 -->
+<select id="findByHighStar" resultType="com.avengers.user.dto.Product">
+	select * from product p join comments c on p.product_no=c.product_no order by c.comments_star desc
+</select>
+
+<!-- 제품 번호로 찾기 -->
+<select id="findByProductNo" resultType="com.avengers.user.dto.Product">
+	select * from product where product_no=#{product_no}
+</select>
+
+<!-- 제품 카테고리로 찾기 -->
+<select id="findProductCategory" resultType="com.avengers.user.dto.Product" parameterType="String">
+	select * from product where product_category like '%'||#{product_category}||'%'
+</select>
+
+<!-- 제품 등록-->
+<insert id="insertProduct" parameterType="com.avengers.user.dto.Product">
+	insert into product 
+	values (
+	PRODUCT_PRODUCT_NO_SEQ.nextval,
+	#{product_name},
+	#{product_desc},
+	#{product_price},
+	#{product_seller}, 
+	sysdate,
+	#{product_category},
+	#{product_image})
+</insert>
+
+<!-- 제품 수정 -->
+<update id="updateProductByNo" parameterType="com.avengers.user.dto.Product">
+	update product set Product_name=#{product_name},Product_desc = #{product_desc},product_price= #{product_price}
+	where product_no= #{product_no}
+</update>
+
+<!-- 제품 삭제 -->
+<delete id="deleteProductByNo" parameterType="int">
+	delete from product where product_no=#{product_no}
+</delete>
+
+<!-- 여성,남성 제품 총 갯수 -->
+<select id="findAllCountByType" parameterType="String" resultType="int" >
+select count(*) from product where product_category like '%'||#{type}||'%'
+</select>
+
+<!-- 상품 리스트 페이징 -->
+<select id="findProductList" resultType="com.avengers.user.dto.Product">
+	select * from
+		(select rownum idx, p.* from
+		(select * from product
+		where product_category like '%'||#{product_category}||'%'
+		order by product.product_date desc) p)
+	where idx &gt;=#{start} and idx &lt;=#{last}
+</select>
+
+<!-- 검색 제품 총 갯수 -->
+<select id="findProductListCountByCategory" resultType="int">
+   		select count(*) from product where product_name like '%'||#{category}||'%'
+</select>
+
+<!-- 검색 페이징 -->
+<select id="findProductByCategory" resultType="com.avengers.user.dto.Product">
+	select * from
+	(select rownum idx,p.* from
+	(select * from product where product_category like '%'||#{category}||'%')p) 
+	where idx &gt;=#{start} and idx &lt;=#{last}
+</select>
+
+</mapper>

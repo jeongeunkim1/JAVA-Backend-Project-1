@@ -1,0 +1,615 @@
+<html lang="en" class="webkit safari win">
+<head>
+<meta charset="utf-8">
+<title>Wokiee - Responsive HTML5 Template</title>
+<meta name="keywords" content="HTML5 Template">
+<meta name="description" content="Wokiee - Responsive HTML5 Template">
+<meta name="author" content="wokiee">
+<link rel="shortcut icon" href="favicon.ico">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="loaded">
+	<div id="loader-wrapper">
+		<div id="loader">
+			<div class="dot"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+		</div>
+	</div>
+<div id="header" th:insert="header-top"></div>
+	<div id="tt-pageContent">
+		<div class="container-indent">
+			<div class="container">
+				<h1 class="tt-title-subpages noborder">SHOPPING ORDER</h1>
+
+			</div>
+		</div>
+	</div>
+	<div class="send-info member">
+
+										<!--
+                <h3>주문자 정보<span class="pull-right"><button class="btn btn-black btn-v5-xs h-35" data-toggle="modal" data-target="#change-send-info">정보 변경</button></span></h3>
+            	 -->
+										<h3>
+											주문자 정보<span class="pull-right"><button
+													class="btn btn-black btn-v5-xs h-35"
+													onclick="window.open('/store/mypage/modify')">정보
+													변경</button></span>
+										</h3>
+										<table class="table table-v5">
+											<tbody>
+												<tr>
+													<th>주문자</th>
+													<td>유지우</td>
+												</tr>
+												<tr>
+													<th>휴대폰번호</th>
+													<td>010-8922-7116</td>
+												</tr>
+												<tr>
+													<th>이메일</th>
+													<td>orangeyjw@naver.com</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="delivery-info member">
+                <h3>배송정보</h3>
+                <table class="table table-v5">
+                    <tbody>
+                    <tr class="delivery-info-checkbox">
+                        <th class="hidden-xs">배송지선택</th>
+                        <td>
+                            <span class="mr-20"><input type="radio" id="delivery_info_member_default" name="delivery_info_member" value="A" checked="checked"><label for="delivery_info_member_default" class="checksquare"><span class="black"></span>기본 주소</label></span>
+                            <span class="mr-20"><input type="radio" id="delivery_info_member_recent" name="delivery_info_member" value="B"><label for="delivery_info_member_recent" class="checksquare"><span class="black"></span>최근 배송지</label></span>
+                            <span class="mr-20 member_list"><input type="radio" id="delivery_info_member_list" name="delivery_info_member" value="D"><label for="delivery_info_member_list" class="checksquare"><span class="black"></span>주소록 선택</label>
+                                <span class="fs-select-v5">
+                                    <select id="delivery_info_list" name="delivery_info_list" class="fs-select select2-hidden-accessible" title="주소록 선택" tabindex="-1" aria-hidden="true" disabled="">
+                                        <option value="">선택하세요</option>
+                                    </select><span class="select2 select2-container select2-container--default select2-container--disabled" dir="ltr" style="width: 87px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" title="주소록 선택" tabindex="-1" aria-labelledby="select2-delivery_info_list-container"><span class="select2-selection__rendered" id="select2-delivery_info_list-container" title="선택하세요">선택하세요</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </span>
+                            </span>
+                            <span class="mr-20"><input type="radio" id="delivery_info_member_new" name="delivery_info_member" value="C"><label for="delivery_info_member_new" class="checksquare"><span class="black"></span>새로 입력</label></span>
+                        </td>
+                    </tr>
+
+                    <!-- 1)회원정보 주소 -->
+                    <tr class="delivery_info_member_default">
+                        <th>수령인</th>
+                        <td>
+                            <input type="text" id="rcvr_nm" name="rcvr_nm" value="유지우">
+                        </td>
+                    </tr>
+                    <tr class="delivery_info_member_default phone">
+                        <th>휴대폰번호</th>
+                        <td>
+                            <p class="fs-select-v5">
+                                <select id="rmobile1" name="rmobile1" class="fs-select select2-hidden-accessible" title="휴대폰대표번호" tabindex="-1" aria-hidden="true">
+                                    <option value="">선택</option>
+                                    <option value="010" selected="">010</option>
+                                    <option value="011">011</option>
+                                    <option value="016">016</option>
+                                    <option value="017">017</option>
+                                    <option value="018">018</option>
+                                    <option value="019">019</option>
+                                    <option value="070">070</option>
+                                    <option value="0503">0503</option>
+                                </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 56px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" title="휴대폰대표번호" tabindex="-1" aria-labelledby="select2-rmobile1-container"><span class="select2-selection__rendered" id="select2-rmobile1-container" title="010">010</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                <input class="" type="text" id="rmobile2" name="rmobile2" title="휴대폰번호앞자리" maxlength="4" value="8922" onkeyup="if (onlyNum(this) != true) {this.value='';}">
+                                <input class="" type="text" id="rmobile3" name="rmobile3" title="휴대폰번호뒷자리" maxlength="4" value="7116" onkeyup="if (onlyNum(this) != true) {this.value='';}">
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="delivery_info_member_default address">
+                        <th>주소</th>
+                        <td>
+                            <p class="mb-5">
+                                <input type="text" id="rzip_cd" name="rzip_cd" value="122-891" readonly="readonly">
+                                <button class="m-0 h-35 btn btn-v5-xs btn-border-black open-modal" name="userpostalcode" data-toggle="modal" data-target="#find-postalcode" onclick="get_zipcode()">우편번호 찾기</button>
+                            </p>
+                            <p class="mb-5"><input type="text" id="rzip_addr1" name="rzip_addr1" title="상세주소입력칸" value="서울 은평구 증산로15길 39-1 (신사동, 신의쉐르빌)"></p>
+                            <p><input type="text" id="rzip_addr2" name="rzip_addr2" title="상세주소입력칸" value="502호"></p>
+                            <p><input type="checkbox" id="set_default_addr" name="set_default_addr" value="Y"><label for="set_default_addr" class="checksquare"><span class="black"></span>기본배송지로 등록</label></p>
+                        </td>
+                    </tr>
+                    <tr class="delivery_info_member_default delivery_message">
+                        <th>배송 메세지</th>
+                        <td>
+                            <input type="text" id="dlv_msg" name="dlv_msg">
+                            <div class="delivery_info_dropdown" style="display: none;">
+                                <p>배송 전에 미리 연락 바랍니다.</p>
+                                <p>부재시 경비실에 맡겨 주세요.</p>
+                                <p>부재시 전화 주시거나 문자 남겨 주세요.</p>
+                            </div>
+                        </td>
+                    </tr>
+					<!-- // 1)회원정보 주소 -->
+
+                    </tbody>
+                </table>
+            </div>
+<!-- footer -->
+<div id="header" th:insert="page_footer"></div>
+	<div class="tt-promo-fixed" id="js-tt-promo-fixed" style="opacity: 1;">
+		<button class="tt-btn-close"></button>
+		<div class="tt-img">
+			<a href="product.html"><img src="images/product/product-14.jpg"
+				data-src="images/product/product-14.jpg" alt="" class="loaded"
+				data-was-processed="true"></a>
+		</div>
+		<div class="tt-description">
+			<div class="tt-box-top">
+				<p>Someone purchsed a</p>
+				<p>
+					<a href="#"> Lorem ipsum dolor sit amet conse ctetur
+						adipisicing elit... </a>
+				</p>
+			</div>
+			<div class="tt-info">14 Minutes ago from New York, USA</div>
+		</div>
+	</div>
+	<div id="tt-boxedbutton">
+		<a
+			href="https://www.youtube.com/playlist?list=PLjvK4DAxOmmVqXYUbOFUTqdl0b7pg7gN1"
+			target="_blank" class="rtlbutton external-link">
+			<div class="box-btn">
+				<i class="icon-g-54"></i>
+			</div>
+			<div class="box-description">
+				Presentation&nbsp;<strong>VIDEO</strong>
+			</div>
+			<div class="box-disable">Disable</div>
+		</a>
+		<div class="rtlbutton boxbutton-js">
+			<div class="box-btn">BOX</div>
+			<div class="box-description">
+				Use demo with&nbsp;<strong>BOX</strong>
+			</div>
+			<div class="box-disable">Disable</div>
+		</div>
+		<div class="rtlbutton rtlbutton-js">
+			<div class="box-btn">RTL</div>
+			<div class="box-description">
+				Use demo with&nbsp;<strong>RTL</strong>
+			</div>
+			<div class="box-disable">Disable</div>
+		</div>
+		<div class="rtlbutton-color">
+			<div class="box-btn">
+				<img src="images/custom/rtlbutton-color.png" alt="" class="loading"
+					data-was-processed="true">
+			</div>
+			<div class="box-description">
+				<span class="box-title">COLOR SCHEME</span>
+				<ul>
+					<li class="active"><a href="#" class="colorswatch1"></a></li>
+					<li data-color="02"><a href="#" class="colorswatch2"></a></li>
+					<li data-color="03"><a href="#" class="colorswatch3"></a></li>
+					<li data-color="04"><a href="#" class="colorswatch4"></a></li>
+					<li data-color="05"><a href="#" class="colorswatch5"></a></li>
+					<li data-color="06"><a href="#" class="colorswatch6"></a></li>
+					<li data-color="07"><a href="#" class="colorswatch7"></a></li>
+					<li data-color="08"><a href="#" class="colorswatch8"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- modal (AddToCartProduct) -->
+	<div class="modal  fade" id="modalAddToCartProduct" tabindex="-1"
+		role="dialog" aria-label="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">
+						<span class="icon icon-clear"></span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="tt-modal-addtocart mobile">
+						<div class="tt-modal-messages">
+							<i class="icon-f-68"></i> Added to cart successfully!
+						</div>
+						<a href="#" class="btn-link btn-close-popup">CONTINUE SHOPPING</a>
+						<a href="shopping_cart_02.html" class="btn-link">VIEW CART</a> <a
+							href="page404.html" class="btn-link">PROCEED TO CHECKOUT</a>
+					</div>
+					<div class="tt-modal-addtocart desctope">
+						<div class="row">
+							<div class="col-12 col-lg-6">
+								<div class="tt-modal-messages">
+									<i class="icon-f-68"></i> Added to cart successfully!
+								</div>
+								<div class="tt-modal-product">
+									<div class="tt-img">
+										<img src="images/loader.svg"
+											data-src="images/product/product-01.jpg" alt="">
+									</div>
+									<h2 class="tt-title">
+										<a href="product.html">Flared Shift Dress</a>
+									</h2>
+									<div class="tt-qty">
+										QTY: <span>1</span>
+									</div>
+								</div>
+								<div class="tt-product-total">
+									<div class="tt-total">
+										TOTAL: <span class="tt-price">$324</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-lg-6">
+								<a href="#" class="tt-cart-total"> There are 1 items in your
+									cart
+									<div class="tt-total">
+										TOTAL: <span class="tt-price">$324</span>
+									</div>
+								</a> <a href="#" class="btn btn-border btn-close-popup">CONTINUE
+									SHOPPING</a> <a href="shopping_cart_02.html" class="btn btn-border">VIEW
+									CART</a> <a href="#" class="btn">PROCEED TO CHECKOUT</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal (quickViewModal) -->
+	<div class="modal  fade" id="ModalquickView" tabindex="-1"
+		role="dialog" aria-label="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">
+						<span class="icon icon-clear"></span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="tt-modal-quickview desctope">
+						<div class="row">
+							<div class="col-12 col-md-5 col-lg-6">
+								<div
+									class="tt-mobile-product-slider arrow-location-center slick-initialized slick-slider slick-dotted">
+									<div class="slick-list draggable" style="height: 100px;">
+										<div class="slick-track"
+											style="opacity: 1; width: 0px; transform: translate3d(0px, 0px, 0px);">
+											<div class="slick-slide slick-cloned" data-slick-index="-1"
+												aria-hidden="true" tabindex="-1" style="width: 0px;">
+												<img src="images/product/product-01-04.jpg" alt="">
+											</div>
+											<div class="slick-slide slick-current slick-active"
+												data-slick-index="0" aria-hidden="false" tabindex="0"
+												role="tabpanel" id="slick-slide00"
+												aria-describedby="slick-slide-control00" style="width: 0px;">
+												<img src="images/product/product-01.jpg" alt="">
+											</div>
+											<div class="slick-slide" data-slick-index="1"
+												aria-hidden="true" tabindex="-1" role="tabpanel"
+												id="slick-slide01" aria-describedby="slick-slide-control01"
+												style="width: 0px;">
+												<img src="images/product/product-01-02.jpg" alt="">
+											</div>
+											<div class="slick-slide" data-slick-index="2"
+												aria-hidden="true" tabindex="-1" role="tabpanel"
+												id="slick-slide02" aria-describedby="slick-slide-control02"
+												style="width: 0px;">
+												<img src="images/product/product-01-03.jpg" alt="">
+											</div>
+											<div class="slick-slide" data-slick-index="3"
+												aria-hidden="true" tabindex="-1" role="tabpanel"
+												id="slick-slide03" aria-describedby="slick-slide-control03"
+												style="width: 0px;">
+												<img src="images/product/product-01-04.jpg" alt="">
+											</div>
+											<div class="slick-slide slick-cloned" data-slick-index="4"
+												aria-hidden="true" tabindex="-1" style="width: 0px;">
+												<img src="images/product/product-01.jpg" alt="">
+											</div>
+											<div class="slick-slide slick-cloned" data-slick-index="5"
+												aria-hidden="true" tabindex="-1" style="width: 0px;">
+												<img src="images/product/product-01-02.jpg" alt="">
+											</div>
+											<div class="slick-slide slick-cloned" data-slick-index="6"
+												aria-hidden="true" tabindex="-1" style="width: 0px;">
+												<img src="images/product/product-01-03.jpg" alt="">
+											</div>
+											<div class="slick-slide slick-cloned" data-slick-index="7"
+												aria-hidden="true" tabindex="-1" style="width: 0px;">
+												<img src="images/product/product-01-04.jpg" alt="">
+											</div>
+										</div>
+									</div>
+
+
+
+									<!--
+								//video insertion template
+								<div>
+									<div class="tt-video-block">
+										<a href="#" class="link-video"></a>
+										<video class="movie" src="video/video.mp4" poster="video/video_img.jpg"></video>
+									</div>
+								</div> -->
+									<ul class="slick-dots" role="tablist" style="display: flex;">
+										<li class="slick-active" role="presentation"><button
+												type="button" role="tab" id="slick-slide-control00"
+												aria-controls="slick-slide00" aria-label="1 of 4"
+												tabindex="0" aria-selected="true">1</button></li>
+										<li role="presentation"><button type="button" role="tab"
+												id="slick-slide-control01" aria-controls="slick-slide01"
+												aria-label="2 of 4" tabindex="-1">2</button></li>
+										<li role="presentation"><button type="button" role="tab"
+												id="slick-slide-control02" aria-controls="slick-slide02"
+												aria-label="3 of 4" tabindex="-1">3</button></li>
+										<li role="presentation"><button type="button" role="tab"
+												id="slick-slide-control03" aria-controls="slick-slide03"
+												aria-label="4 of 4" tabindex="-1">4</button></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-12 col-md-7 col-lg-6">
+								<div class="tt-product-single-info">
+									<div class="tt-add-info">
+										<ul>
+											<li><span>SKU:</span> 001</li>
+											<li><span>Availability:</span> 40 in Stock</li>
+										</ul>
+									</div>
+									<h2 class="tt-title">Cotton Blend Fleece Hoodie</h2>
+									<div class="tt-price">
+										<span class="new-price">$29</span> <span class="old-price"></span>
+									</div>
+									<div class="tt-review">
+										<div class="tt-rating">
+											<i class="icon-star"></i> <i class="icon-star"></i> <i
+												class="icon-star"></i> <i class="icon-star-half"></i> <i
+												class="icon-star-empty"></i>
+										</div>
+										<a href="#">(1 Customer Review)</a>
+									</div>
+									<div class="tt-wrapper">Lorem ipsum dolor sit amet conse
+										ctetur adipisicing elit, sed do eiusmod tempor incididunt ut
+										labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+									<div class="tt-swatches-container">
+										<div class="tt-wrapper">
+											<div class="tt-title-options">SIZE</div>
+											<form class="form-default">
+												<div class="form-group">
+													<select class="form-control">
+														<option>21</option>
+														<option>25</option>
+														<option>36</option>
+													</select>
+												</div>
+											</form>
+										</div>
+										<div class="tt-wrapper">
+											<div class="tt-title-options">COLOR</div>
+											<form class="form-default">
+												<div class="form-group">
+													<select class="form-control">
+														<option>Red</option>
+														<option>Green</option>
+														<option>Brown</option>
+													</select>
+												</div>
+											</form>
+										</div>
+										<div class="tt-wrapper">
+											<div class="tt-title-options">TEXTURE:</div>
+											<ul class="tt-options-swatch options-large">
+												<li><a class="options-color" href="#"> <span
+														class="swatch-img"> <img src="images/loader.svg"
+															data-src="images/custom/texture-img-01.jpg" alt="">
+													</span> <span class="swatch-label color-black"></span>
+												</a></li>
+												<li class="active"><a class="options-color" href="#">
+														<span class="swatch-img"> <img
+															src="images/loader.svg"
+															data-src="images/custom/texture-img-02.jpg" alt="">
+													</span> <span class="swatch-label color-black"></span>
+												</a></li>
+												<li><a class="options-color" href="#"> <span
+														class="swatch-img"> <img src="images/loader.svg"
+															data-src="images/custom/texture-img-03.jpg" alt="">
+													</span> <span class="swatch-label color-black"></span>
+												</a></li>
+												<li><a class="options-color" href="#"> <span
+														class="swatch-img"> <img src="images/loader.svg"
+															data-src="images/custom/texture-img-04.jpg" alt="">
+													</span> <span class="swatch-label color-black"></span>
+												</a></li>
+												<li><a class="options-color" href="#"> <span
+														class="swatch-img"> <img src="images/loader.svg"
+															data-src="images/custom/texture-img-05.jpg" alt="">
+													</span> <span class="swatch-label color-black"></span>
+												</a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="tt-wrapper">
+										<div class="tt-row-custom-01">
+											<div class="col-item">
+												<div class="tt-input-counter style-01">
+													<span class="minus-btn"></span> <input type="text"
+														value="1" size="5"> <span class="plus-btn"></span>
+												</div>
+											</div>
+											<div class="col-item">
+												<a href="#" class="btn btn-lg"><i class="icon-f-39"></i>ADD
+													TO CART</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modalVideoProduct -->
+	<div class="modal fade" id="modalVideoProduct" tabindex="-1"
+		role="dialog" aria-label="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-video">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">
+						<span class="icon icon-clear"></span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-video-content"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal (ModalSubsribeGood) -->
+	<div class="modal  fade" id="ModalSubsribeGood" tabindex="-1"
+		role="dialog" aria-label="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xs">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">
+						<span class="icon icon-clear"></span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="tt-modal-subsribe-good">
+						<i class="icon-f-68"></i> You have successfully signed!
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal (newsletter) -->
+	<!-- <div class="modal  fade"  id="Modalnewsletter" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true"  data-pause=2000>
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+			</div>
+			<form>
+				<div class="modal-body no-background">
+					<div class="tt-modal-newsletter">
+						<div class="tt-modal-newsletter-promo">
+							<div class="tt-title-small">BE THE FIRST<br> TO KNOW ABOUT</div>
+							<div class="tt-title-large">WOKIEE</div>
+							<p>
+								HTML FASHION DROPSHIPPING THEME
+							</p>
+						</div>
+						<p>
+							By subscribe, you accept the terms &amp; privacy policy<br>
+						</p>
+						<div class="subscribe-form form-default">
+							<div class="row-subscibe">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Enter your e-mail">
+									<button type="submit" class="btn">JOIN US</button>
+								</div>
+							</div>
+							<div class="checkbox-group">
+								<input type="checkbox" id="checkBox1">
+								<label for="checkBox1">
+									<span class="check"></span>
+									<span class="box"></span>
+									Don’t Show This Popup Again
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div> -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script>
+		window.jQuery
+				|| document
+						.write('<script src="external/jquery/jquery.min.js"><\/script>')
+	</script>
+	<script defer="" src="js/bundle.js"></script>
+
+
+	<a href="#" class="tt-back-to-top" id="js-back-to-top">BACK TO TOP</a>
+	<script>
+		jQuery(function($) {
+			var $window = $(window), $ttPageContent = $('#tt-pageContent'), ttwindowWidth = window.innerWidth
+					|| $window.width(), blocks = {
+				ttShopCart : $ttPageContent
+						.find('.tt-shopcart-table, .tt-shopcart-table-02')
+			};
+			if (blocks.ttShopCart.length) {
+				ttShopCart(ttwindowWidth);
+			}
+			;
+			var ttCachedWidth = $window.width();
+			$window.on('resize', function() {
+				var newWidth = $window.width();
+				if (newWidth !== ttCachedWidth) {
+					ttCachedWidth = newWidth;
+					var ttwindowWidth = window.innerWidth || $window.width();
+
+					// shopping_cart.html
+					if (blocks.ttShopCart.length) {
+						ttShopCart(ttwindowWidth);
+					}
+					;
+				}
+			});
+			function ttShopCart(ttwindowWidth) {
+				ttwindowWidth <= 789 ? insertDesctopeObj() : insertMobileObj();
+
+				function insertDesctopeObj() {
+					blocks.ttShopCart
+							.find('tr')
+							.each(
+									function() {
+										var objDesctope = $(this)
+												.find(
+														'.detach-quantity-desctope .tt-input-counter')
+												.detach().get(0);
+										$(this).find('.detach-quantity-mobile')
+												.append(objDesctope);
+									});
+				}
+				;
+				function insertMobileObj() {
+					blocks.ttShopCart
+							.find('tr')
+							.each(
+									function() {
+										var objMobile = $(this)
+												.find(
+														'.detach-quantity-mobile .tt-input-counter')
+												.detach().get(0);
+										$(this).find(
+												'.detach-quantity-desctope')
+												.append(objMobile);
+									});
+				}
+				;
+			}
+			;
+		});
+	</script>
+
+	<div class="mm-fullscreen-bg"></div>
+	<div class="header-popup-bg"></div>
+</body>
+</html>

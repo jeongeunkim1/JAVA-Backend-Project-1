@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+		<meta charset="utf-8">
+	<title>Wokiee - Responsive HTML5 Template</title>
+	<meta name="keywords" content="HTML5 Template">
+	<meta name="description" content="Wokiee - Responsive HTML5 Template">
+	<meta name="author" content="wokiee">
+	<link rel="shortcut icon" href="favicon.ico">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	
+</head>
+<body>
+<div id="loader-wrapper">
+	<div id="loader">
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+	</div>
+</div>
+<div id="header" th:insert="header-top"></div>
+<div id="tt-pageContent">
+	<div class="container-indent">
+		<div class="container">
+			<h1 class="tt-title-subpages noborder">제품 등록</h1>
+			<div class="tt-login-form">
+				<div class="row justify-content-center">
+					<div class="col-md-8 col-lg-6">
+						<div class="tt-item">
+							<h2 class="tt-title">제품 정보 입력</h2>
+							<div class="form-default">
+								<form id="product_insert_form" method="post" novalidate="novalidate" enctype="multipart/form-data">
+									<div class="form-group">
+										<label for="category">제품 카테고리 *</label>
+										<div class="tt-required">* 필수 사항</div><br/>
+										<select th:name="category" class="form-select" aria-label="Default select example" id="category">
+										  <option selected style="display:none">First Category</option>
+										  <option value="남성">남성</option>
+										  <option value="여성">여성</option>
+										</select>
+									</div>
+									<div class="form-group" id="menCategory" style="display:none">
+										<label for="menCategory">남성제품 카테고리 *</label><br/>
+										<select th:name="menCategory" id="menCategory" class="form-select" aria-label="Default select example">
+										  <option selected style="display:none">Second Category</option>
+										  <option value="아우터">아우터</option>
+										  <option value="티셔츠">티셔츠</option>
+										  <option value="후드">후드</option>
+										  <option value="셔츠">셔츠</option>
+										  <option value="니트웨어">니트웨어</option>
+										  <option value="팬츠">팬츠</option>
+										</select>
+									</div>
+									<div class="form-group" id="womenCategory" style="display:none">
+										<label for="womenCategory">여성제품 카테고리 *</label><br/>
+										<select th:name="womenCategory" class="form-select" aria-label="Default select example">
+										  <option selected style="display:none">Second Category</option>
+										  <option value="아우터">아우터</option>
+										  <option value="원피스">원피스</option>
+										  <option value="블라우스/셔츠">블라우스/셔츠</option>
+										  <option value="티셔츠">티셔츠</option>
+										  <option value="니트웨어">니트웨어</option>
+										  <option value="스커트">스커트</option>
+										  <option value="팬츠">팬츠</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="product_name">제품 이름 *</label>
+										<input type="text" name="product_name" class="form-control" id="product_name" placeholder="제품 이름">
+										<div class="check_font" id="product_name_check"></div>
+									</div>
+									<div class="form-group">
+										<label for="product_desc">제품 설명 *</label>
+										<input type="text" name="product_desc" class="form-control" id="product_desc" placeholder="제품 설명">
+									</div>
+									<div class="form-group">
+										<label for="product_price">제품 가격 *</label>
+										<input type="text" name="product_price" class="form-control" id="loginInputEmail" placeholder="제품 가격">
+									</div>
+									<div class="form-group">
+										<label for="product_seller">제품 판매자 *</label>
+										<input type="text" name="product_seller" readonly class="form-control" id="product_seller" th:value="${user_name}">
+									</div>
+									<div class="form-group">
+										<label for="product_date">제품 등록 날짜 *</label>
+										<input type="text" readonly class="form-control" id="product_date" th:placeholder="${time}">
+									</div>
+									<div class="form-group">
+										<label for="product_image">제품 이미지 *</label>
+										<input type="file" accept="*" name="fileSelect" readonly class="form-control" id="fileSelect" >
+									</div>
+									<input type="hidden" id="product_image" name="product_image">
+									<div class="row">
+										<div class="col-auto">
+											<div class="form-group">
+												<button class="btn btn-border" type="button" id="btn" >제품 등록</button>
+											</div>
+										</div>
+										<div class="col-auto align-self-center">
+											<div class="form-group">
+												<ul class="additional-links">
+													<li>or <a href="/user">메인으로</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- footer -->
+<div id="header" th:insert="page_footer"></div>
+
+<!-- modal (AddToCartProduct) -->
+<div class="modal  fade"  id="modalAddToCartProduct" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+			</div>
+			<div class="modal-body">
+				<div class="tt-modal-addtocart mobile">
+					<div class="tt-modal-messages">
+						<i class="icon-f-68"></i> Added to cart successfully!
+					</div>
+					<a href="#" class="btn-link btn-close-popup">CONTINUE SHOPPING</a>
+			        <a href="shopping_cart_02.html" class="btn-link">VIEW CART</a>
+			        <a href="page404.html" class="btn-link">PROCEED TO CHECKOUT</a>
+				</div>
+				<div class="tt-modal-addtocart desctope">
+					<div class="row">
+						<div class="col-12 col-lg-6">
+							<div class="tt-modal-messages">
+								<i class="icon-f-68"></i> Added to cart successfully!
+							</div>
+							<div class="tt-modal-product">
+								<div class="tt-img">
+									<img src="images/loader.svg" data-src="images/product/product-01.jpg" alt="">
+								</div>
+								<h2 class="tt-title"><a href="product.html">Flared Shift Dress</a></h2>
+								<div class="tt-qty">
+									QTY: <span>1</span>
+								</div>
+							</div>
+							<div class="tt-product-total">
+								<div class="tt-total">
+									TOTAL: <span class="tt-price">$324</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-lg-6">
+							<a href="#" class="tt-cart-total">
+								There are 1 items in your cart
+								<div class="tt-total">
+									TOTAL: <span class="tt-price">$324</span>
+								</div>
+							</a>
+							<a href="#" class="btn btn-border btn-close-popup">CONTINUE SHOPPING</a>
+							<a href="shopping_cart_02.html" class="btn btn-border">VIEW CART</a>
+							<a href="#" class="btn">PROCEED TO CHECKOUT</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- modal (quickViewModal) -->
+<div class="modal  fade"  id="ModalquickView" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+			</div>
+			<div class="modal-body">
+				<div class="tt-modal-quickview desctope">
+					<div class="row">
+						<div class="col-12 col-md-5 col-lg-6">
+							<div class="tt-mobile-product-slider arrow-location-center">
+								<div><img src="#" data-lazy="images/product/product-01.jpg" alt=""></div>
+								<div><img src="#" data-lazy="images/product/product-01-02.jpg" alt=""></div>
+								<div><img src="#" data-lazy="images/product/product-01-03.jpg" alt=""></div>
+								<div><img src="#" data-lazy="images/product/product-01-04.jpg" alt=""></div>
+								<!--
+								//video insertion template
+								<div>
+									<div class="tt-video-block">
+										<a href="#" class="link-video"></a>
+										<video class="movie" src="video/video.mp4" poster="video/video_img.jpg"></video>
+									</div>
+								</div> -->
+							</div>
+						</div>
+						<div class="col-12 col-md-7 col-lg-6">
+							<div class="tt-product-single-info">
+								<div class="tt-add-info">
+									<ul>
+										<li><span>SKU:</span> 001</li>
+										<li><span>Availability:</span> 40 in Stock</li>
+									</ul>
+								</div>
+								<h2 class="tt-title">Cotton Blend Fleece Hoodie</h2>
+								<div class="tt-price">
+									<span class="new-price">$29</span>
+									<span class="old-price"></span>
+								</div>
+								<div class="tt-review">
+									<div class="tt-rating">
+										<i class="icon-star"></i>
+										<i class="icon-star"></i>
+										<i class="icon-star"></i>
+										<i class="icon-star-half"></i>
+										<i class="icon-star-empty"></i>
+									</div>
+									<a href="#">(1 Customer Review)</a>
+								</div>
+								<div class="tt-wrapper">
+									Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+								</div>
+								<div class="tt-swatches-container">
+									<div class="tt-wrapper">
+										<div class="tt-title-options">SIZE</div>
+										<form class="form-default">
+											<div class="form-group">
+												<select class="form-control">
+													<option>21</option>
+													<option>25</option>
+													<option>36</option>
+												</select>
+											</div>
+										</form>
+									</div>
+									<div class="tt-wrapper">
+										<div class="tt-title-options">COLOR</div>
+										<form class="form-default">
+											<div class="form-group">
+												<select class="form-control">
+													<option>Red</option>
+													<option>Green</option>
+													<option>Brown</option>
+												</select>
+											</div>
+										</form>
+									</div>
+									<div class="tt-wrapper">
+										<div class="tt-title-options">TEXTURE:</div>
+										<ul class="tt-options-swatch options-large">
+											<li><a class="options-color" href="#">
+												<span class="swatch-img">
+													<img src="images/loader.svg" data-src="images/custom/texture-img-01.jpg" alt="">
+												</span>
+												<span class="swatch-label color-black"></span>
+											</a></li>
+											<li class="active"><a class="options-color" href="#">
+												<span class="swatch-img">
+													<img src="images/loader.svg" data-src="images/custom/texture-img-02.jpg" alt="">
+												</span>
+												<span class="swatch-label color-black"></span>
+											</a></li>
+											<li><a class="options-color" href="#">
+												<span class="swatch-img">
+													<img src="images/loader.svg" data-src="images/custom/texture-img-03.jpg" alt="">
+												</span>
+												<span class="swatch-label color-black"></span>
+											</a></li>
+											<li><a class="options-color" href="#">
+												<span class="swatch-img">
+													<img src="images/loader.svg" data-src="images/custom/texture-img-04.jpg" alt="">
+												</span>
+												<span class="swatch-label color-black"></span>
+											</a></li>
+											<li><a class="options-color" href="#">
+												<span class="swatch-img">
+													<img src="images/loader.svg" data-src="images/custom/texture-img-05.jpg" alt="">
+												</span>
+												<span class="swatch-label color-black"></span>
+											</a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="tt-wrapper">
+									<div class="tt-row-custom-01">
+										<div class="col-item">
+											<div class="tt-input-counter style-01">
+												<span class="minus-btn"></span>
+												<input type="text" value="1" size="5">
+												<span class="plus-btn"></span>
+											</div>
+										</div>
+										<div class="col-item">
+											<a href="#" class="btn btn-lg"><i class="icon-f-39"></i>ADD TO CART</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- modalVideoProduct -->
+<div class="modal fade"  id="modalVideoProduct" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-video">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+			</div>
+			<div class="modal-body">
+				<div class="modal-video-content">
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- modal (ModalSubsribeGood) -->
+<div class="modal  fade"  id="ModalSubsribeGood" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xs">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+			</div>
+			<div class="modal-body">
+				<div class="tt-modal-subsribe-good">
+					<i class="icon-f-68"></i> You have successfully signed!
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal (newsletter) -->
+<!-- <div class="modal  fade"  id="Modalnewsletter" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true"  data-pause=2000>
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+			</div>
+			<form>
+				<div class="modal-body no-background">
+					<div class="tt-modal-newsletter">
+						<div class="tt-modal-newsletter-promo">
+							<div class="tt-title-small">BE THE FIRST<br> TO KNOW ABOUT</div>
+							<div class="tt-title-large">WOKIEE</div>
+							<p>
+								HTML FASHION DROPSHIPPING THEME
+							</p>
+						</div>
+						<p>
+							By subscribe, you accept the terms &amp; privacy policy<br>
+						</p>
+						<div class="subscribe-form form-default">
+							<div class="row-subscibe">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Enter your e-mail">
+									<button type="submit" class="btn">JOIN US</button>
+								</div>
+							</div>
+							<div class="checkbox-group">
+								<input type="checkbox" id="checkBox1">
+								<label for="checkBox1">
+									<span class="check"></span>
+									<span class="box"></span>
+									Don’t Show This Popup Again
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="external/jquery/jquery.min.js"><\/script>')</script>
+<script defer src="js/bundle.js"></script>
+<script type="text/javascript">
+
+	$(function() {
+		$('#category').on('change', function(e) {
+			if ($('#category option:selected').text()=='남성') {
+				$('#menCategory').show();
+				$('#womenCategory').hide();
+			}
+			if ($('#category option:selected').text()=='여성') {
+				$('#womenCategory').show();
+				$('#menCategory').hide();
+			}
+		})
+	})
+	
+		$("#btn").click(function() {
+			$("#product_image").val($("#fileSelect").val());
+			var form = $('#product_insert_form')[0]; 
+			var formData = new FormData(form);
+
+			$.ajax({
+				url	: "product_insert_ajax",
+				method : "POST",
+				processData : false,
+	            contentType : false,
+	            cache: false,
+				data : formData,
+				dataType : "TEXT",
+				error : function(e){
+					var image=$("#product_image").val();
+					console.log(image);
+					alert("kdaslgnklasdnlgksd");
+				},
+				success : function(count){
+						alert("success1");
+					if(count==1){
+						alert("fail2");
+						$("#product_name_check").text("이미 존재하는 제품명입니다.").css("color","red");
+						alert("제품 이름을 확인해주세요.");
+					}else if(count==0){
+						alert("등록 성공");
+						location.href= "main_page";
+					}
+				}
+			})
+
+		});
+		
+</script>
+<a href="#" class="tt-back-to-top" id="js-back-to-top">BACK TO TOP</a>
+</body>
+</html>
